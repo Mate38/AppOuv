@@ -27,7 +27,7 @@ export default class Manifestacao extends Component {
       selected: "selected",
       place: 'Localizando endereço...',
       error: null,
-      units: 'Obtendo dados...',
+      units: [],
     };
   }
 
@@ -43,7 +43,7 @@ export default class Manifestacao extends Component {
     .then(response => {
       console.log(response);
         this.setState({
-            units: response.data.data[0].nmunidade 
+            units: response.data.data
         })
     }).catch((error) => { 
       this.setState({ error: error.message })
@@ -97,12 +97,9 @@ export default class Manifestacao extends Component {
                   onValueChange={this.onValueChange.bind(this)}
                   itemStyle={{ backgroundColor: 'red' }}
                 >
-                  <Item label="Selecione a unidade responsável" value="selected" />
-                  <Item label={this.state.units.toString()} value="key0" />
-                  <Item label="Dois" value="key1" />
-                  <Item label="Tres" value="key2" />
-                  <Item label="Quatro" value="key3" />
-                  <Item label="Cinco" value="key4" />
+                  { this.state.units.map(unit => (
+                    <Item key={unit.idunidade} label={unit.nmunidade} value={unit.nmunidade} />
+                  )) }
                 </Picker>
                 <Text>{this.state.user}</Text>
               </View>
