@@ -97,6 +97,7 @@ export default class Manifestacao extends Component {
                   onValueChange={this.onValueChange.bind(this)}
                   itemStyle={{ backgroundColor: 'red' }}
                 >
+                  <Item label="Selecione a unidade responsável" value="selected" />
                   { this.state.units.map(unit => (
                     <Item key={unit.idunidade} label={unit.nmunidade} value={unit.nmunidade} />
                   )) }
@@ -105,7 +106,7 @@ export default class Manifestacao extends Component {
               </View>
               <Item floatingLabel>
                 <Label style={{ color: branco }}>Local da ocorrência</Label>
-                <Input multiline={true} numberOfLines={2} value={this.state.place.toString()} />
+                <Input multiline={true} numberOfLines={2} value={this.state.place.toString()} onChangeText={(place) => this.setState({place})}/>
               </Item>
               <Item floatingLabel>
                 <Label style={{ color: branco }}>Sua manifestação*</Label>
