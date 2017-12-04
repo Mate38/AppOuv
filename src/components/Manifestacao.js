@@ -32,6 +32,8 @@ export default class Manifestacao extends Component {
       error: null,
       units: [],
       visibleModal: null,
+      arquivo: '',
+      anexos: [],
     };
   }
 
@@ -39,7 +41,11 @@ export default class Manifestacao extends Component {
     const options = {};
     //options.location = ...
     this.camera.capture({metadata: options})
-      .then((data) => console.log(data))
+    .then(data => {
+      console.log(data);
+      this.state.anexos.push(data.path);
+      console.log(this.state.anexos);
+    })
       .catch(err => console.error(err));
 
     this.setState({ visibleModal: null });
@@ -154,7 +160,6 @@ export default class Manifestacao extends Component {
                 >
                 <Text style={{ fontWeight: 'bold' }}>Camera</Text>
               </Button>
-
               <Modal
                 isVisible={this.state.visibleModal === 1}
                 animationIn={'slideInLeft'}
