@@ -18,7 +18,7 @@ import {
 import Modal from 'react-native-modal';
 import Camera from 'react-native-camera';
 import { Actions } from 'react-native-router-flux';
-import axios from 'axios'; // 0.17.0
+import axios from 'axios';
 
 var fundo = '#387188';
 var branco = '#fff';
