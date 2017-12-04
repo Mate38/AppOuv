@@ -12,7 +12,8 @@ import {
   Form, 
   Item, 
   Label, 
-  Input 
+  Input ,
+  Icon
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios'; // 0.17.0
@@ -112,6 +113,16 @@ export default class Manifestacao extends Component {
                 <Label style={{ color: branco }}>Sua manifestação*</Label>
                 <Input multiline={true} numberOfLines={2}/>
               </Item>
+              <Label style={{ color: branco, paddingTop: 35, marginLeft: 15 }}>Anexar arquivos</Label>
+              <Button 
+                rounded 
+                light
+                warning
+                style={{ margin: 35 }}
+                onPress={() => { Actions.abrecamera() }}
+                >
+                <Text style={{ fontWeight: 'bold' }}>Camera</Text>
+              </Button>
             </Form>
 
           </View>  
