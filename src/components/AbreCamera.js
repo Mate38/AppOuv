@@ -5,10 +5,11 @@ import {
   TouchableHighlight,
   StyleSheet,
   Text,
-  View
+  View,
+  StatusBar
 } from 'react-native';
-
 import Camera from 'react-native-camera';
+import { Actions } from 'react-native-router-flux';
 
 export default class AbreCamera extends Component {
 
@@ -23,13 +24,18 @@ export default class AbreCamera extends Component {
   render() {
     return (
       <View style={styles.container}>
+
+        <StatusBar 
+          backgroundColor='#000'
+        />
+
         <Camera
           ref={(cam) => {
             this.camera = cam;
           }}
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill}>
-          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
+          <Text style={styles.capture} onPress={() => { this.takePicture.bind(this), Actions.manifestacao() }}>[CAPTURE]</Text>
         </Camera>
       </View>
     );
