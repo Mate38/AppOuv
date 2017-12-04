@@ -57,7 +57,7 @@ export default class Manifestacao extends Component {
           style={styles.capture} 
           onPress={ this.takePicture.bind(this) }
         >
-          [CAPTURE]
+          📷
         </Text>
       </Camera>
     </View>
@@ -212,6 +212,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     color: '#000',
     padding: 10,
-    margin: 40
+    margin: 40,
+    fontSize: 40,
   }
 });
