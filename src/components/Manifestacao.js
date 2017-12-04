@@ -15,6 +15,8 @@ import {
   Input ,
   Icon
 } from 'native-base';
+import Modal from 'react-native-modal';
+import Camera from 'react-native-camera';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios'; // 0.17.0
 
@@ -29,8 +31,37 @@ export default class Manifestacao extends Component {
       place: 'Localizando endereço...',
       error: null,
       units: [],
+      visibleModal: null,
     };
   }
+
+  takePicture() {
+    const options = {};
+    //options.location = ...
+    this.camera.capture({metadata: options})
+      .then((data) => console.log(data))
+      .catch(err => console.error(err));
+
+    this.setState({ visibleModal: null });
+  }
+
+  _renderModalContent = () => (
+    <View style={styles.modal}>
+      <Camera
+        ref={(cam) => {
+          this.camera = cam;
+        }}
+        style={styles.preview}
+        aspect={Camera.constants.Aspect.fill}>
+        <Text 
+          style={styles.capture} 
+          onPress={ this.takePicture.bind(this) }
+        >
+          [CAPTURE]
+        </Text>
+      </Camera>
+    </View>
+  );
 
   onValueChange(value: string) {
     this.setState({
@@ -119,10 +150,19 @@ export default class Manifestacao extends Component {
                 light
                 warning
                 style={{ margin: 35 }}
-                onPress={() => { Actions.abrecamera() }}
+                onPress={() => this.setState({ visibleModal: 1 })}
                 >
                 <Text style={{ fontWeight: 'bold' }}>Camera</Text>
               </Button>
+
+              <Modal
+                isVisible={this.state.visibleModal === 1}
+                animationIn={'slideInLeft'}
+                animationOut={'slideOutRight'}
+                >
+                {this._renderModalContent()}
+              </Modal>
+
             </Form>
 
           </View>  
@@ -150,6 +190,9 @@ const styles = StyleSheet.create({
     //justifyContent: 'center',
     alignItems: 'center',
   },
+  modal: {
+    ...StyleSheet.absoluteFillObject,
+  },
   titulo: {
     top: 10,
     paddingBottom: 20,
@@ -158,4 +201,17 @@ const styles = StyleSheet.create({
     color: branco,
     //justifyContent: 'flex-start',
   },
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  capture: {
+    flex: 0,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    color: '#000',
+    padding: 10,
+    margin: 40
+  }
 });
