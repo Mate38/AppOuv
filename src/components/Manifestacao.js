@@ -3,7 +3,8 @@ import {
   StyleSheet,
   ScrollView,
   View,
-  Picker
+  Picker,
+  BackHandler
 } from 'react-native';
 import { 
   Button, 
@@ -22,6 +23,11 @@ import axios from 'axios';
 
 var fundo = '#387188';
 var branco = '#fff';
+
+BackHandler.addEventListener('hardwareBackPress', function() {
+  Actions.tipomanifestacao();
+  return true;
+});
 
 export default class Manifestacao extends Component {
   constructor(props) {
